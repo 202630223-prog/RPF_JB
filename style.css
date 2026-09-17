@@ -2,18 +2,18 @@
    [라이트 모드] 토스(Toss) 스타일 (토스 블루: #0064FF)
    ========================================================= */
 :root {
-  --bg-main: #f2f4f6;             /* 토스 특유의 차분한 라이트 쿨그레이 */
+  --bg-main: #eef1f5;             /* 배경 레이아웃 */
   --bg-card: #ffffff;             /* 토스풍 순백색 라운디드 카드 */
-  --bg-sub: #f9fafb;              /* 영역 구분용 연한 회색 */
-  --text-main: #191f28;           /* 토스 차콜 고대비 텍스트 */
-  --text-sub: #8b95a1;            /* 부드러운 서브 설명 텍스트 */
+  --bg-sub: #f7f8f9;              /* 보조 배경 */
+  --text-main: #191f28;           /* 토스 차콜 선명한 텍스트 */
+  --text-sub: #8b95a1;            /* 서브 설명 텍스트 */
   --primary: #0064FF;             /* 공식 토스 블루 */
   --primary-hover: #0052cc;
   --primary-bg: #e8f3ff;
-  --border-color: #e5e8eb;        /* 깔끔하고 얇은 보더 */
-  --card-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
-  --radius-lg: 24px;              /* 토스 스타일의 넉넉한 둥근 모서리 */
-  --radius-md: 14px;
+  --border-color: #e5e8eb;
+  --card-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
+  --radius-lg: 24px;
+  --radius-md: 12px;
   --font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Pretendard", sans-serif;
 }
 
@@ -21,16 +21,16 @@
    [다크 모드] 넷플릭스(Netflix) 스타일 (넷플릭스 레드: #E50914)
    ========================================================= */
 [data-theme="dark"] {
-  --bg-main: #141414;             /* 넷플릭스 메인 배경 딥 블랙 */
-  --bg-card: #1f1f1f;             /* 넷플릭스 패널 스타일 어두운 카드 */
-  --bg-sub: #2b2b2b;              /* 서브 영역 다크 테마 */
-  --text-main: #ffffff;           /* 선명한 하얀색 텍스트 */
-  --text-sub: #b3b3b3;            /* 회색 넷플릭스 스타일 서브 텍스트 */
+  --bg-main: #0a0a0a;             /* 딥 블랙 배경 */
+  --bg-card: #141414;             /* 넷플릭스 카드/패널 */
+  --bg-sub: #222222;              /* 다크 서브 영역 */
+  --text-main: #ffffff;           /* 화이트 텍스트 */
+  --text-sub: #a3a3a3;            /* 서브 텍스트 */
   --primary: #E50914;             /* 공식 넷플릭스 레드 */
   --primary-hover: #b81d24;
   --primary-bg: rgba(229, 9, 20, 0.2);
   --border-color: #333333;
-  --card-shadow: 0 12px 32px rgba(0, 0, 0, 0.8);
+  --card-shadow: 0 16px 40px rgba(0, 0, 0, 0.8);
 }
 
 /* --- 기본 리셋 --- */
@@ -52,53 +52,82 @@ body {
   padding: 20px;
 }
 
+/* --- 16:9 비율 유지 패널 --- */
 .app-container {
   width: 100%;
-  max-width: 420px;
+  max-width: 960px;
+  aspect-ratio: 16 / 9;            /* 핵심: 16:9 와이드 비율 고정 */
   background-color: var(--bg-card);
   border-radius: var(--radius-lg);
   box-shadow: var(--card-shadow);
-  padding: 28px 24px;
+  padding: 28px 36px;
   border: 1px solid var(--border-color);
   position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   overflow: hidden;
 }
 
-/* --- 헤더 --- */
+/* --- 상단 헤더 --- */
 header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 20px;
+  height: 48px;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
 
 h1 {
-  font-size: 1.35rem;
+  font-size: 1.5rem;
   font-weight: 800;
   letter-spacing: -0.5px;
+}
+
+.aspect-badge {
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 6px;
+  background-color: var(--primary-bg);
+  color: var(--primary);
 }
 
 .theme-toggle {
   background-color: var(--bg-sub);
   color: var(--text-main);
   border: 1px solid var(--border-color);
-  padding: 8px 14px;
+  padding: 8px 16px;
   border-radius: 20px;
-  font-size: 0.8rem;
+  font-size: 0.85rem;
   font-weight: 700;
   cursor: pointer;
 }
 
-/* --- 스텝 표시바 --- */
+/* --- 메인 컨텐츠 영역 --- */
+.main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-top: 12px;
+}
+
+/* --- 스텝 인디케이터 --- */
 .steps-indicator {
   display: flex;
-  gap: 6px;
-  margin-bottom: 24px;
+  gap: 8px;
+  margin-bottom: 20px;
 }
 
 .pill {
   flex: 1;
-  height: 5px;
+  height: 6px;
   background-color: var(--bg-sub);
   border-radius: 3px;
 }
@@ -111,40 +140,49 @@ h1 {
   display: none !important;
 }
 
-/* --- 히어로 / 메인 텍스트 --- */
+/* --- 시작 화면 (와이드 레이아웃) --- */
+#screen-start {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 40px;
+  height: 100%;
+}
+
 .hero-box {
-  margin: 12px 0 28px 0;
+  flex: 1;
 }
 
 .hero-box .subtitle {
-  font-size: 0.88rem;
+  font-size: 1rem;
   color: var(--text-sub);
   font-weight: 600;
-  margin-bottom: 6px;
+  margin-bottom: 8px;
 }
 
 .hero-box h2 {
-  font-size: 1.55rem;
-  line-height: 1.35;
+  font-size: 2.2rem;
+  line-height: 1.3;
   font-weight: 800;
-  letter-spacing: -0.5px;
+  letter-spacing: -0.8px;
+}
+
+.mode-selection-box {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
 }
 
 /* --- 버튼 디자인 --- */
-.mode-selection-box {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
 .btn-primary {
   width: 100%;
-  padding: 16px;
+  padding: 18px;
   background-color: var(--primary);
   color: #ffffff;
   border: none;
   border-radius: var(--radius-md);
-  font-size: 1rem;
+  font-size: 1.05rem;
   font-weight: 700;
   cursor: pointer;
 }
@@ -155,12 +193,12 @@ h1 {
 
 .btn-secondary {
   width: 100%;
-  padding: 16px;
+  padding: 18px;
   background-color: var(--bg-sub);
   color: var(--text-main);
   border: 1px solid var(--border-color);
   border-radius: var(--radius-md);
-  font-size: 0.98rem;
+  font-size: 1.05rem;
   font-weight: 600;
   cursor: pointer;
 }
@@ -172,33 +210,33 @@ h1 {
   color: var(--primary);
   border: 1px solid var(--primary);
   border-radius: var(--radius-md);
-  font-size: 0.95rem;
+  font-size: 1rem;
   font-weight: 700;
   cursor: pointer;
-  margin-top: 12px;
+  margin-top: 10px;
 }
 
-/* --- 선택 옵션 그리드 --- */
+/* --- 선택 옵션 그리드 (16:9 와이드용 3열 / 6열 레이아웃) --- */
 .step-header h3 {
-  font-size: 1.2rem;
+  font-size: 1.3rem;
   font-weight: 700;
   margin-bottom: 16px;
 }
 
 .options-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 10px;
+  grid-template-columns: repeat(3, 1fr);  /* 와이드에 어울리는 3열 구성 */
+  gap: 12px;
   margin-bottom: 12px;
 }
 
 .btn-option {
-  padding: 15px 10px;
+  padding: 18px 12px;
   background-color: var(--bg-sub);
   color: var(--text-main);
   border: 1px solid var(--border-color);
   border-radius: var(--radius-md);
-  font-size: 0.92rem;
+  font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
   text-align: center;
@@ -213,9 +251,9 @@ h1 {
 /* --- 탭 제어 --- */
 .tabs-header {
   display: flex;
-  gap: 4px;
+  gap: 8px;
   background-color: var(--bg-sub);
-  padding: 4px;
+  padding: 6px;
   border-radius: var(--radius-md);
   margin-bottom: 16px;
 }
@@ -226,9 +264,9 @@ h1 {
   background: transparent;
   border: none;
   color: var(--text-sub);
-  font-size: 0.85rem;
+  font-size: 0.95rem;
   font-weight: 700;
-  border-radius: 10px;
+  border-radius: 8px;
   cursor: pointer;
 }
 
@@ -238,33 +276,40 @@ h1 {
   box-shadow: 0 2px 8px rgba(0,0,0,0.06);
 }
 
-/* --- 결과 목록 --- */
+/* --- 결과 화면 레이아웃 (좌/우 2컬럼 와이드 구성) --- */
+#screen-result {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
 .result-header h3 {
-  font-size: 1.25rem;
+  font-size: 1.3rem;
   font-weight: 800;
 }
 
 .result-sub-text {
-  font-size: 0.82rem;
+  font-size: 0.85rem;
   color: var(--text-sub);
-  margin-top: 4px;
-  margin-bottom: 16px;
+  margin-top: 2px;
+  margin-bottom: 12px;
 }
 
 .result-list {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* 2열 파티션 */
   gap: 10px;
-  max-height: 260px;
+  max-height: 220px;
   overflow-y: auto;
-  margin-bottom: 20px;
+  margin-bottom: 16px;
+  padding-right: 4px;
 }
 
 .result-item {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 14px 16px;
+  padding: 14px 18px;
   background-color: var(--bg-sub);
   border: 1px solid var(--border-color);
   border-radius: var(--radius-md);
@@ -273,9 +318,14 @@ h1 {
 }
 
 .result-item-sub {
-  font-size: 0.78rem;
+  font-size: 0.8rem;
   color: var(--text-sub);
   font-weight: 400;
+}
+
+.result-actions {
+  display: flex;
+  gap: 12px;
 }
 
 /* --- 모달 --- */
@@ -283,7 +333,7 @@ h1 {
   position: absolute;
   top: 0; left: 0; width: 100%; height: 100%;
   background: rgba(0, 0, 0, 0.65);
-  backdrop-filter: blur(4px);
+  backdrop-filter: blur(6px);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -299,21 +349,30 @@ h1 {
 
 .modal-content {
   background-color: var(--bg-card);
-  padding: 28px 20px;
+  padding: 36px 32px;
   border-radius: var(--radius-lg);
   text-align: center;
-  width: 82%;
+  width: 50%;
   border: 1px solid var(--border-color);
+  box-shadow: var(--card-shadow);
 }
 
 .modal-subtitle {
-  font-size: 0.85rem;
+  font-size: 0.95rem;
   color: var(--text-sub);
   margin-bottom: 8px;
 }
 
 .modal-title {
-  font-size: 1.35rem;
+  font-size: 1.6rem;
   font-weight: 800;
   color: var(--primary);
+}
+
+/* 화면 세로 높이가 너무 낮아질 경우 반응형 맞춤 */
+@media (max-height: 600px) {
+  .app-container {
+    aspect-ratio: auto;
+    height: 90vh;
+  }
 }

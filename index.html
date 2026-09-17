@@ -3,67 +3,76 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>오늘 뭐 먹지?</title>
+  <title>오늘 뭐 먹지? (16:9 와이드)</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <!-- 16:9 와이드 컨테이너 -->
   <div class="app-container">
+    
+    <!-- 상단 헤더 -->
     <header>
-      <h1>오늘 뭐 먹지?</h1>
+      <div class="header-left">
+        <h1>오늘 뭐 먹지?</h1>
+        <span class="aspect-badge">16 : 9 WIDE</span>
+      </div>
       <button id="theme-toggle-btn" class="theme-toggle">Dark Mode</button>
     </header>
 
-    <!-- 스텝 인디케이터 -->
-    <div id="steps-indicator" class="steps-indicator hidden">
-      <div class="pill" id="pill-1"></div>
-      <div class="pill" id="pill-2"></div>
-      <div class="pill" id="pill-3"></div>
-    </div>
+    <!-- 메인 컨텐츠 영역 -->
+    <main class="main-content">
+      <!-- 스텝 인디케이터 -->
+      <div id="steps-indicator" class="steps-indicator hidden">
+        <div class="pill" id="pill-1"></div>
+        <div class="pill" id="pill-2"></div>
+        <div class="pill" id="pill-3"></div>
+      </div>
 
-    <!-- 1. 시작 화면 -->
-    <section id="screen-start" class="screen">
-      <div class="hero-box">
-        <p class="subtitle">결정 장애를 위한 맞춤 음식 추천</p>
-        <h2>오늘의 식사 메뉴를<br>정해드립니다</h2>
-      </div>
-      <div class="mode-selection-box">
-        <button id="btn-mode-step" class="btn-primary">단계별로 찾기</button>
-        <button id="btn-mode-quick" class="btn-secondary">한 번에 빠르게 찾기</button>
-      </div>
-    </section>
+      <!-- 1. 시작 화면 -->
+      <section id="screen-start" class="screen">
+        <div class="hero-box">
+          <p class="subtitle">결정 장애를 위한 맞춤 음식 추천</p>
+          <h2>오늘의 식사 메뉴를<br>정해드립니다</h2>
+        </div>
+        <div class="mode-selection-box">
+          <button id="btn-mode-step" class="btn-primary">단계별로 찾기</button>
+          <button id="btn-mode-quick" class="btn-secondary">한 번에 빠르게 찾기</button>
+        </div>
+      </section>
 
-    <!-- 2. 단계별 선택 화면 -->
-    <section id="screen-step" class="screen hidden">
-      <div class="step-header">
-        <h3 id="step-title-text">원하는 맛을 선택하세요</h3>
-      </div>
-      <div id="step-options-grid" class="options-grid"></div>
-      <button id="btn-spin-step" class="btn-action">랜덤 뽑기 🎲</button>
-    </section>
+      <!-- 2. 단계별 선택 화면 -->
+      <section id="screen-step" class="screen hidden">
+        <div class="step-header">
+          <h3 id="step-title-text">원하는 맛을 선택하세요</h3>
+        </div>
+        <div id="step-options-grid" class="options-grid"></div>
+        <button id="btn-spin-step" class="btn-action">랜덤 뽑기 🎲</button>
+      </section>
 
-    <!-- 3. 빠른 선택 화면 -->
-    <section id="screen-quick" class="screen hidden">
-      <div class="tabs-header">
-        <button class="tab-btn active" data-tab="taste">맛</button>
-        <button class="tab-btn" data-tab="main">주메뉴</button>
-        <button class="tab-btn" data-tab="origin">출처</button>
-      </div>
-      <div id="quick-options-grid" class="options-grid"></div>
-      <button id="btn-spin-quick" class="btn-primary" style="margin-top: 16px;">선택 항목으로 추천받기</button>
-    </section>
+      <!-- 3. 빠른 선택 화면 -->
+      <section id="screen-quick" class="screen hidden">
+        <div class="tabs-header">
+          <button class="tab-btn active" data-tab="taste">맛</button>
+          <button class="tab-btn" data-tab="main">주메뉴</button>
+          <button class="tab-btn" data-tab="origin">출처</button>
+        </div>
+        <div id="quick-options-grid" class="options-grid"></div>
+        <button id="btn-spin-quick" class="btn-primary" style="margin-top: 12px;">선택 항목으로 추천받기</button>
+      </section>
 
-    <!-- 4. 최종 결과 화면 -->
-    <section id="screen-result" class="screen hidden">
-      <div class="result-header">
-        <h3>오늘의 추천 후보</h3>
-        <p class="result-sub-text">선택 조건에 100% 일치하는 메뉴입니다</p>
-      </div>
-      <div id="result-list-box" class="result-list"></div>
-      <div class="result-actions">
-        <button id="btn-spin-final" class="btn-primary">최종 1개 잭팟 뽑기 🎰</button>
-        <button id="btn-reset" class="btn-secondary" style="margin-top: 8px;">다시 선택하기</button>
-      </div>
-    </section>
+      <!-- 4. 최종 결과 화면 -->
+      <section id="screen-result" class="screen hidden">
+        <div class="result-header">
+          <h3>오늘의 추천 후보</h3>
+          <p class="result-sub-text">선택 조건에 100% 일치하는 메뉴입니다</p>
+        </div>
+        <div id="result-list-box" class="result-list"></div>
+        <div class="result-actions">
+          <button id="btn-spin-final" class="btn-primary">최종 1개 잭팟 뽑기 🎰</button>
+          <button id="btn-reset" class="btn-secondary">다시 선택하기</button>
+        </div>
+      </section>
+    </main>
 
     <!-- 모달 (스핀 / 팝업 연출) -->
     <div id="app-modal" class="modal-overlay">
@@ -72,6 +81,7 @@
         <h2 id="modal-title" class="modal-title">메뉴명</h2>
       </div>
     </div>
+
   </div>
 
   <script src="script.js"></script>

@@ -1,4 +1,4 @@
-// --- Web Audio API (사운드 연출) ---
+// --- Web Audio API (사운드 효과) ---
 const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 
 function playTick() {
@@ -386,7 +386,6 @@ function runDirectFinalSpin() {
   showFinalResultScreen();
 }
 
-// 엄격 필터링
 function showFinalResultScreen() {
   hideAllScreens();
   document.getElementById('steps-indicator').classList.add('hidden');
@@ -403,7 +402,7 @@ function showFinalResultScreen() {
   });
 
   if (exactMatches.length === 0) {
-    container.innerHTML = `<div style="padding: 24px; text-align: center; color: var(--text-sub); font-size: 0.9rem;">선택한 조건에 만족하는 메뉴가 없습니다.<br>조건을 변경해 보세요!</div>`;
+    container.innerHTML = `<div style="grid-column: 1 / -1; padding: 24px; text-align: center; color: var(--text-sub); font-size: 0.95rem;">선택한 조건에 만족하는 메뉴가 없습니다.<br>조건을 변경해 보세요!</div>`;
     return;
   }
 
