@@ -1,4 +1,4 @@
-// --- Web Audio API ---
+// --- Web Audio API (사운드 연출) ---
 const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 
 function playTick() {
@@ -33,16 +33,15 @@ function playChime() {
   });
 }
 
-// --- 데이터 정의 ---
+// --- 선택지 및 DB (210개) ---
 const optionsData = {
   taste: ['매운맛', '단맛', '짠맛', '고소한맛', '담백한맛', '새콤한맛'],
   main: ['밥', '면', '빵/패스트푸드', '고기/구이', '국물/탕', '해산물/회'],
   origin: ['한식', '중식', '일식', '양식', '동남아식', '분식/야식']
 };
 
-// 200개 이상의 초대형 음식 데이터베이스 (총 210개)
 const foodDB = [
-  // --- 매운맛 (35개) ---
+  // 매운맛
   { name: "낙지볶음 덮밥", taste: "매운맛", main: "밥", origin: "한식" },
   { name: "제육덮밥", taste: "매운맛", main: "밥", origin: "한식" },
   { name: "김치볶음밥", taste: "매운맛", main: "밥", origin: "한식" },
@@ -79,7 +78,7 @@ const foodDB = [
   { name: "양념 게장", taste: "매운맛", main: "해산물/회", origin: "한식" },
   { name: "칠리 새우", taste: "매운맛", main: "해산물/회", origin: "중식" },
 
-  // --- 단맛 (35개) ---
+  // 단맛
   { name: "불고기 덮밥", taste: "단맛", main: "밥", origin: "한식" },
   { name: "오므라이스", taste: "단맛", main: "밥", origin: "양식" },
   { name: "치킨 마요 덮밥", taste: "단맛", main: "밥", origin: "일식" },
@@ -116,9 +115,8 @@ const foodDB = [
   { name: "장어 구이(양념)", taste: "단맛", main: "해산물/회", origin: "일식" },
   { name: "고구마 튀김", taste: "단맛", main: "빵/패스트푸드", origin: "분식/야식" },
 
-  // --- 짠맛 (35개) ---
+  // 짠맛
   { name: "스팸 마요 덮밥", taste: "짠맛", main: "밥", origin: "한식" },
-  // 간장게장 수정 반영 (간장게장 밥 -> 간장게장 / main: 해산물/회)
   { name: "간장게장", taste: "짠맛", main: "해산물/회", origin: "한식" },
   { name: "규동(소고기덮밥)", taste: "짠맛", main: "밥", origin: "일식" },
   { name: "가츠동", taste: "짠맛", main: "밥", origin: "일식" },
@@ -154,7 +152,7 @@ const foodDB = [
   { name: "양념 곱창전골", taste: "짠맛", main: "국물/탕", origin: "한식" },
   { name: "알탕", taste: "짠맛", main: "국물/탕", origin: "한식" },
 
-  // --- 고소한맛 (35개) ---
+  // 고소한맛
   { name: "삼겹살 구이", taste: "고소한맛", main: "고기/구이", origin: "한식" },
   { name: "목살 구이", taste: "고소한맛", main: "고기/구이", origin: "한식" },
   { name: "소고기 등심 구이", taste: "고소한맛", main: "고기/구이", origin: "한식" },
@@ -191,7 +189,7 @@ const foodDB = [
   { name: "김치전", taste: "고소한맛", main: "빵/패스트푸드", origin: "한식" },
   { name: "감자전", taste: "고소한맛", main: "빵/패스트푸드", origin: "한식" },
 
-  // --- 담백한맛 (35개) ---
+  // 담백한맛
   { name: "연어 덮밥(사케동)", taste: "담백한맛", main: "밥", origin: "일식" },
   { name: "곤드레 밥", taste: "담백한맛", main: "밥", origin: "한식" },
   { name: "월남쌈", taste: "담백한맛", main: "밥", origin: "동남아식" },
@@ -228,7 +226,7 @@ const foodDB = [
   { name: "야채 김밥", taste: "담백한맛", main: "밥", origin: "분식/야식" },
   { name: "충무 김밥", taste: "담백한맛", main: "밥", origin: "분식/야식" },
 
-  // --- 새콤한맛 (35개) ---
+  // 새콤한맛
   { name: "물냉면", taste: "새콤한맛", main: "면", origin: "한식" },
   { name: "김치말이 국수", taste: "새콤한맛", main: "면", origin: "한식" },
   { name: "열무 국수", taste: "새콤한맛", main: "면", origin: "한식" },
@@ -266,7 +264,6 @@ const foodDB = [
   { name: "나초 샐러드", taste: "새콤한맛", main: "빵/패스트푸드", origin: "양식" }
 ];
 
-let currentMode = ''; 
 let currentStepIndex = 0;
 let userSelection = { taste: '', main: '', origin: '' };
 let activeQuickTab = 'taste';
@@ -274,7 +271,7 @@ let activeQuickTab = 'taste';
 const stepKeys = ['taste', 'main', 'origin'];
 const stepTitles = ['원하는 맛을 선택하세요', '주메뉴 종류를 선택하세요', '음식 출처를 선택하세요'];
 
-// --- 초기화 및 이벤트 리스너 ---
+// --- 이벤트 바인딩 ---
 document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('theme-toggle-btn').addEventListener('click', toggleTheme);
   document.getElementById('btn-mode-step').addEventListener('click', () => initMode('step'));
@@ -293,7 +290,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
 function initMode(mode) {
   if (audioCtx.state === 'suspended') audioCtx.resume();
-  currentMode = mode;
   userSelection = { taste: '', main: '', origin: '' };
   hideAllScreens();
 
@@ -316,7 +312,6 @@ function hideAllScreens() {
   document.getElementById('screen-result').classList.add('hidden');
 }
 
-// --- 단계별 모드 ---
 function renderStepContent() {
   const key = stepKeys[currentStepIndex];
   document.getElementById('step-title-text').innerText = stepTitles[currentStepIndex];
@@ -340,9 +335,7 @@ function renderStepContent() {
 
 function onUserManualSelect(category, val) {
   userSelection[category] = val;
-  showPraiseModal("훌륭하신 선택입니다.", val, () => {
-    advanceStep();
-  });
+  showPraiseModal("선택 완료", val, () => advanceStep());
 }
 
 function advanceStep() {
@@ -362,7 +355,6 @@ function spinCurrentStep() {
   });
 }
 
-// --- 빠른 선택 모드 ---
 function switchQuickTab(tabKey, targetBtn) {
   activeQuickTab = tabKey;
   document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
@@ -381,9 +373,7 @@ function renderQuickContent() {
     btn.onclick = () => {
       userSelection = { taste: '', main: '', origin: '' };
       userSelection[activeQuickTab] = opt;
-      showPraiseModal("훌륭하신 선택입니다.", opt, () => {
-        renderQuickContent();
-      });
+      showPraiseModal("선택 완료", opt, () => renderQuickContent());
     };
     grid.appendChild(btn);
   });
@@ -396,7 +386,7 @@ function runDirectFinalSpin() {
   showFinalResultScreen();
 }
 
-// --- 엄격한 필터링 적용 (완전 일치하는 항목만 노출) ---
+// 엄격 필터링
 function showFinalResultScreen() {
   hideAllScreens();
   document.getElementById('steps-indicator').classList.add('hidden');
@@ -405,7 +395,6 @@ function showFinalResultScreen() {
   const container = document.getElementById('result-list-box');
   container.innerHTML = '';
 
-  // 지정된 조건에 모두(100%) 부합하는 항목만 필터링
   const exactMatches = foodDB.filter(f => {
     if (userSelection.taste && f.taste !== userSelection.taste) return false;
     if (userSelection.main && f.main !== userSelection.main) return false;
@@ -413,19 +402,17 @@ function showFinalResultScreen() {
     return true;
   });
 
-  // 조건에 일치하는 결과가 없는 경우 처리
   if (exactMatches.length === 0) {
-    container.innerHTML = `<div style="padding: 20px; text-align: center; color: var(--text-sub);">선택하신 조건에 완전히 일치하는 메뉴가 없습니다.<br>다른 조건으로 다시 시도해 보세요!</div>`;
+    container.innerHTML = `<div style="padding: 24px; text-align: center; color: var(--text-sub); font-size: 0.9rem;">선택한 조건에 만족하는 메뉴가 없습니다.<br>조건을 변경해 보세요!</div>`;
     return;
   }
 
-  // 화면에 100% 일치 결과 카드 생성
   exactMatches.forEach(item => {
     const div = document.createElement('div');
     div.className = 'result-item';
     div.innerHTML = `
       <span>${item.name}</span>
-      <span class="result-item-sub">${item.origin} · ${item.main} · ${item.taste}</span>
+      <span class="result-item-sub">${item.origin} · ${item.main}</span>
     `;
     container.appendChild(div);
   });
@@ -437,7 +424,7 @@ function runFinalJackpot() {
   if (list.length === 0) return;
 
   runSpinAnimation(list, (winner) => {
-    showPraiseModal("오늘의 추천 음식", winner, null, 2500);
+    showPraiseModal("오늘의 최종 추천", winner, null, 2500);
   });
 }
 
