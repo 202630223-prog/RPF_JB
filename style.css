@@ -1,190 +1,136 @@
-/* =========================================================
-   [라이트 모드] 토스(Toss) 스타일 (토스 블루: #0064FF)
-   ========================================================= */
-:root {
-  --bg-main: #eef1f5;             /* 배경 레이아웃 */
-  --bg-card: #ffffff;             /* 토스풍 순백색 라운디드 카드 */
-  --bg-sub: #f7f8f9;              /* 보조 배경 */
-  --text-main: #191f28;           /* 토스 차콜 선명한 텍스트 */
-  --text-sub: #8b95a1;            /* 서브 설명 텍스트 */
-  --primary: #0064FF;             /* 공식 토스 블루 */
-  --primary-hover: #0052cc;
-  --primary-bg: #e8f3ff;
-  --border-color: #e5e8eb;
-  --card-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
-  --radius-lg: 24px;
-  --radius-md: 12px;
-  --font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Pretendard", sans-serif;
+:root[data-theme="dark"] {
+  --bg-color: #0F172A;
+  --card-bg: #1E293B;
+  --text-main: #F8FAFC;
+  --text-sub: #94A3B8;
+  --border-color: #334155;
+  --primary: #6366F1;
+  --primary-hover: #4F46E5;
+  --chip-bg: #0F172A;
+  --shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
 }
 
-/* =========================================================
-   [다크 모드] 넷플릭스(Netflix) 스타일 (넷플릭스 레드: #E50914)
-   ========================================================= */
-[data-theme="dark"] {
-  --bg-main: #0a0a0a;             /* 딥 블랙 배경 */
-  --bg-card: #141414;             /* 넷플릭스 카드/패널 */
-  --bg-sub: #222222;              /* 다크 서브 영역 */
-  --text-main: #ffffff;           /* 화이트 텍스트 */
-  --text-sub: #a3a3a3;            /* 서브 텍스트 */
-  --primary: #E50914;             /* 공식 넷플릭스 레드 */
-  --primary-hover: #b81d24;
-  --primary-bg: rgba(229, 9, 20, 0.2);
-  --border-color: #333333;
-  --card-shadow: 0 16px 40px rgba(0, 0, 0, 0.8);
+:root[data-theme="light"] {
+  --bg-color: #F8FAFC;
+  --card-bg: #FFFFFF;
+  --text-main: #0F172A;
+  --text-sub: #64748B;
+  --border-color: #E2E8F0;
+  --primary: #4F46E5;
+  --primary-hover: #4338CA;
+  --chip-bg: #F1F5F9;
+  --shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.08);
 }
 
-/* --- 기본 리셋 --- */
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  font-family: var(--font-family);
-  transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+  font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
+  transition: background-color 0.25s, color 0.25s, border-color 0.25s;
 }
 
-body {
-  background-color: var(--bg-main);
-  color: var(--text-main);
+html, body {
+  width: 100%;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: var(--bg-color);
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 100vh;
-  padding: 20px;
 }
 
-/* --- 16:9 비율 유지 패널 --- */
 .app-container {
-  width: 100%;
-  max-width: 960px;
-  aspect-ratio: 16 / 9;            /* 핵심: 16:9 와이드 비율 고정 */
-  background-color: var(--bg-card);
-  border-radius: var(--radius-lg);
-  box-shadow: var(--card-shadow);
-  padding: 28px 36px;
-  border: 1px solid var(--border-color);
-  position: relative;
+  width: 100vw;
+  height: 56.25vw;
+  max-height: 100vh;
+  max-width: 177.78vh;
+  background-color: var(--card-bg);
+  padding: 30px 45px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  position: relative;
   overflow: hidden;
 }
 
-/* --- 상단 헤더 --- */
 header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 48px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--border-color);
 }
 
-.header-left {
+.brand {
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--text-main);
+}
+
+.header-actions {
   display: flex;
   align-items: center;
-  gap: 12px;
-}
-
-h1 {
-  font-size: 1.5rem;
-  font-weight: 800;
-  letter-spacing: -0.5px;
-}
-
-.aspect-badge {
-  font-size: 0.72rem;
-  font-weight: 700;
-  padding: 3px 8px;
-  border-radius: 6px;
-  background-color: var(--primary-bg);
-  color: var(--primary);
+  gap: 16px;
 }
 
 .theme-toggle {
-  background-color: var(--bg-sub);
-  color: var(--text-main);
+  background: none;
   border: 1px solid var(--border-color);
+  color: var(--text-main);
   padding: 8px 16px;
   border-radius: 20px;
   font-size: 0.85rem;
-  font-weight: 700;
+  font-weight: 500;
   cursor: pointer;
 }
 
-/* --- 메인 컨텐츠 영역 --- */
-.main-content {
+.theme-toggle:hover {
+  border-color: var(--primary);
+}
+
+.view-screen {
   flex: 1;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  margin-top: 12px;
-}
-
-/* --- 스텝 인디케이터 --- */
-.steps-indicator {
-  display: flex;
-  gap: 8px;
-  margin-bottom: 20px;
-}
-
-.pill {
-  flex: 1;
-  height: 6px;
-  background-color: var(--bg-sub);
-  border-radius: 3px;
-}
-
-.pill.active {
-  background-color: var(--primary);
-}
-
-.screen.hidden {
-  display: none !important;
-}
-
-/* --- 시작 화면 (와이드 레이아웃) --- */
-#screen-start {
-  display: flex;
-  justify-content: space-between;
   align-items: center;
-  gap: 40px;
-  height: 100%;
 }
 
-.hero-box {
-  flex: 1;
-}
-
-.hero-box .subtitle {
-  font-size: 1rem;
-  color: var(--text-sub);
-  font-weight: 600;
-  margin-bottom: 8px;
-}
-
-.hero-box h2 {
-  font-size: 2.2rem;
-  line-height: 1.3;
+.start-title {
+  font-size: 2.8rem;
   font-weight: 800;
-  letter-spacing: -0.8px;
+  margin-bottom: 12px;
+  letter-spacing: -0.03em;
+  color: var(--text-main);
 }
 
-.mode-selection-box {
-  flex: 1;
+.start-desc {
+  color: var(--text-sub);
+  font-size: 1.1rem;
+  margin-bottom: 40px;
+}
+
+.mode-select-group {
   display: flex;
-  flex-direction: column;
-  gap: 14px;
+  gap: 20px;
 }
 
-/* --- 버튼 디자인 --- */
-.btn-primary {
-  width: 100%;
-  padding: 18px;
-  background-color: var(--primary);
-  color: #ffffff;
-  border: none;
-  border-radius: var(--radius-md);
+.btn-main {
+  padding: 18px 36px;
   font-size: 1.05rem;
-  font-weight: 700;
+  font-weight: 600;
+  border-radius: 14px;
+  border: none;
   cursor: pointer;
+}
+
+.btn-primary {
+  background-color: var(--primary);
+  color: #FFF;
 }
 
 .btn-primary:hover {
@@ -192,50 +138,65 @@ h1 {
 }
 
 .btn-secondary {
-  width: 100%;
-  padding: 18px;
-  background-color: var(--bg-sub);
+  background-color: transparent;
   color: var(--text-main);
   border: 1px solid var(--border-color);
-  border-radius: var(--radius-md);
-  font-size: 1.05rem;
-  font-weight: 600;
-  cursor: pointer;
 }
 
-.btn-action {
-  width: 100%;
-  padding: 14px;
-  background-color: var(--primary-bg);
-  color: var(--primary);
-  border: 1px solid var(--primary);
-  border-radius: var(--radius-md);
-  font-size: 1rem;
+.btn-secondary:hover {
+  background-color: var(--chip-bg);
+}
+
+.steps-indicator {
+  display: flex;
+  gap: 8px;
+}
+
+.step-pill {
+  width: 32px;
+  height: 6px;
+  border-radius: 3px;
+  background-color: var(--border-color);
+}
+
+.step-pill.active {
+  background-color: var(--primary);
+}
+
+.content-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 20px 0;
+}
+
+.step-title {
+  font-size: 1.4rem;
   font-weight: 700;
-  cursor: pointer;
-  margin-top: 10px;
+  margin-bottom: 6px;
+  color: var(--text-main);
 }
 
-/* --- 선택 옵션 그리드 (16:9 와이드용 3열 / 6열 레이아웃) --- */
-.step-header h3 {
-  font-size: 1.3rem;
-  font-weight: 700;
-  margin-bottom: 16px;
+.step-sub {
+  font-size: 0.95rem;
+  color: var(--text-sub);
+  margin-bottom: 20px;
 }
 
-.options-grid {
+.grid-6 {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);  /* 와이드에 어울리는 3열 구성 */
-  gap: 12px;
-  margin-bottom: 12px;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  margin-bottom: 20px;
 }
 
 .btn-option {
-  padding: 18px 12px;
-  background-color: var(--bg-sub);
-  color: var(--text-main);
+  padding: 18px 16px;
+  background-color: var(--chip-bg);
   border: 1px solid var(--border-color);
-  border-radius: var(--radius-md);
+  border-radius: 14px;
+  color: var(--text-main);
   font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
@@ -245,134 +206,113 @@ h1 {
 .btn-option:hover {
   border-color: var(--primary);
   color: var(--primary);
-  background-color: var(--primary-bg);
 }
 
-/* --- 탭 제어 --- */
-.tabs-header {
+.category-tabs {
   display: flex;
-  gap: 8px;
-  background-color: var(--bg-sub);
-  padding: 6px;
-  border-radius: var(--radius-md);
-  margin-bottom: 16px;
+  gap: 10px;
+  margin-bottom: 18px;
 }
 
 .tab-btn {
-  flex: 1;
-  padding: 10px 0;
-  background: transparent;
-  border: none;
+  padding: 10px 20px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  border: 1px solid var(--border-color);
+  background-color: transparent;
   color: var(--text-sub);
-  font-size: 0.95rem;
-  font-weight: 700;
-  border-radius: 8px;
   cursor: pointer;
 }
 
 .tab-btn.active {
-  background-color: var(--bg-card);
-  color: var(--text-main);
-  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  background-color: var(--text-main);
+  color: var(--bg-color);
+  border-color: var(--text-main);
 }
 
-/* --- 결과 화면 레이아웃 (좌/우 2컬럼 와이드 구성) --- */
-#screen-result {
+.bottom-actions {
   display: flex;
-  flex-direction: column;
-  height: 100%;
+  gap: 16px;
 }
 
-.result-header h3 {
-  font-size: 1.3rem;
+.btn-spin {
+  flex: 1;
+  padding: 16px;
+  background-color: var(--text-main);
+  color: var(--bg-color);
+  border: none;
+  border-radius: 14px;
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.modal-overlay {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-color: rgba(15, 23, 42, 0.85);
+  backdrop-filter: blur(6px);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 50;
+}
+
+.modal-overlay.active {
+  display: flex;
+}
+
+.modal-box {
+  background-color: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 20px;
+  padding: 36px 60px;
+  text-align: center;
+  box-shadow: var(--shadow);
+}
+
+.praise-text {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--primary);
+}
+
+.spin-result-text {
+  font-size: 2rem;
   font-weight: 800;
-}
-
-.result-sub-text {
-  font-size: 0.85rem;
-  color: var(--text-sub);
-  margin-top: 2px;
-  margin-bottom: 12px;
+  margin-top: 10px;
+  color: var(--text-main);
 }
 
 .result-list {
   display: grid;
-  grid-template-columns: repeat(2, 1fr); /* 2열 파티션 */
-  gap: 10px;
-  max-height: 220px;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  max-height: 230px;
   overflow-y: auto;
-  margin-bottom: 16px;
+  margin-bottom: 20px;
   padding-right: 4px;
 }
 
 .result-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 14px 18px;
-  background-color: var(--bg-sub);
+  padding: 14px 16px;
+  background-color: var(--chip-bg);
   border: 1px solid var(--border-color);
-  border-radius: var(--radius-md);
-  font-size: 0.95rem;
-  font-weight: 700;
+  border-radius: 12px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+  color: var(--text-main);
 }
 
 .result-item-sub {
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   color: var(--text-sub);
   font-weight: 400;
 }
 
-.result-actions {
-  display: flex;
-  gap: 12px;
-}
-
-/* --- 모달 --- */
-.modal-overlay {
-  position: absolute;
-  top: 0; left: 0; width: 100%; height: 100%;
-  background: rgba(0, 0, 0, 0.65);
-  backdrop-filter: blur(6px);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  opacity: 0;
-  pointer-events: none;
-  border-radius: var(--radius-lg);
-}
-
-.modal-overlay.active {
-  opacity: 1;
-  pointer-events: auto;
-}
-
-.modal-content {
-  background-color: var(--bg-card);
-  padding: 36px 32px;
-  border-radius: var(--radius-lg);
-  text-align: center;
-  width: 50%;
-  border: 1px solid var(--border-color);
-  box-shadow: var(--card-shadow);
-}
-
-.modal-subtitle {
-  font-size: 0.95rem;
-  color: var(--text-sub);
-  margin-bottom: 8px;
-}
-
-.modal-title {
-  font-size: 1.6rem;
-  font-weight: 800;
-  color: var(--primary);
-}
-
-/* 화면 세로 높이가 너무 낮아질 경우 반응형 맞춤 */
-@media (max-height: 600px) {
-  .app-container {
-    aspect-ratio: auto;
-    height: 90vh;
-  }
-}
+.hidden { display: none !important; }
